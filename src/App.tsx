@@ -1,23 +1,8 @@
-import { QuestionsPage } from '@/pades/QuestionsPage';
-import { Route, Routes } from 'react-router';
-import { MainLayout } from '@components/MainLayout/MainLayout';
-import { NotFound } from '@/pades/NotFound';
+import { RouterProvider } from 'react-router';
+import { router } from '@routes/routes';
 
 function App() {
-	return (
-		<Routes>
-			<Route element={<MainLayout />}>
-				<Route
-					path="/"
-					element={<QuestionsPage />}
-				/>
-				<Route
-					path="*"
-					element={<NotFound />}
-				/>
-			</Route>
-		</Routes>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;

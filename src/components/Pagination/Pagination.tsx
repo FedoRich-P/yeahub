@@ -1,22 +1,29 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-export function Pagination() {
+type Props = {
+	pages: number;
+};
+
+export function Pagination({ pages }: Props) {
+
 	return (
-		<div className="flex justify-center items-center space-x-3 mt-6">
+		<footer className="flex items-baseline space-x-3 mt-6 max-w-[450px] mx-auto">
 			<button className="w-8 h-8 flex items-center justify-center bg-white border border-purple rounded-full text-purple">
 				<ArrowLeft />
 			</button>
-			{[1, 2, 3, 4, 5].map(page => (
-				<button
-					key={page}
-					className={`w-8 h-8 flex items-center justify-center rounded-lg ${page === 1 ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300 text-gray-700 p-1.5'}`}
-				>
-					{page}
-				</button>
-			))}
+			<ul className={'flex items-center justify-center gap-3 overflow-x-auto'}>
+				{Array.from({ length: pages }).map((_, index) => (
+					<li key={index}>
+						<button
+							className={`flex items-center justify-center rounded-lg ${index + 1 === 1 ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300 text-gray-700 p-1.5'}`}>
+							{index + 1}
+						</button>
+					</li>
+				))}
+			</ul>
 			<button className="w-8 h-8 flex items-center justify-center bg-white border border-purple rounded-full text-purple">
 				<ArrowRight />
 			</button>
-		</div>
+		</footer>
 	);
 }
