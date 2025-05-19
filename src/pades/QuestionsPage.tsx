@@ -1,29 +1,23 @@
 import { Pagination } from '@components/Pagination/Pagination';
 import { QuestionCard } from '@components/QuestionCard/QuestionCard';
-import { sampleQuestions } from '@/constants';
-
-export type Question = {
-	id: number;
-	title: string;
-	description: string;
-	tags: string[];
-	skills: string[];
-	rating: number;
-	complexity: number;
-	imageUrl: string;
-};
+import { useGetQuestionsQuery } from '@/services/questions';
 
 export function QuestionsPage() {
+	// const [page, setPage] = useState(2);
+
+	const { data } = useGetQuestionsQuery({ page: 1 });
+
 	return (
-		<section className="flex-1 lg:pr-8 bg-white rounded-lg p-4 w-full">
+		<section className="lg:pr-8 bg-white rounded-lg p-4">
 			<h2 className="text-xl font-light border-b-2 border-main-border pb-3">Вопросы React, JavaScript</h2>
-			{sampleQuestions.map((question) => (
-				<QuestionCard
-					key={question.id}
-					question={question}
-				/>
-			))}
-			<Pagination />
+			{data &&
+				data.data.map((question) => (
+					<QuestionCard
+						key={question.id}
+						question={question}
+					/>
+				))}
+			<Pagination pages={data ? Math.floor(data.total / data.limit) : 0} />
 		</section>
 	);
 }

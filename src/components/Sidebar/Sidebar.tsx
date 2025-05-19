@@ -6,7 +6,7 @@ import { Search } from 'lucide-react';
 
 export function Sidebar() {
 	return (
-		<aside className="hidden lg:block max-w-97 w-full">
+		<aside className="hidden lg:block w-97">
 			<div className="bg-white rounded-xl shadow p-6 space-y-6">
 				<form className={'flex items-center gap-2 py-2 px-6  border border-gray-300 rounded-lg text-gray-400'}>
 					<Search className={'w-5 h-5'} />
