@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    // Целевая версия JS
+    "target": "ESNext",
+    // Для классов — использовать синтаксис defineProperty, а не прямое присваивание
+    "useDefineForClassFields": true,
+    // Библиотеки, доступные глобально (DOM + современные возможности ES)
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    // Запрет на компиляцию .js-файлов
+    "allowJs": false,
+    // Пропуск проверки типов в сторонних библиотеках (node_modules)
+    "skipLibCheck": true,
+    // Отключить генерацию __importDefault для совместимости — используем ESM-интероп
+    "esModuleInterop": false,
+    // Разрешить default-импорт из модулей, где нет default-экспорта
+    "allowSyntheticDefaultImports": true,
+    // Включить все строгие проверки TypeScript
+    "strict": true,
+    // Включить строгую чувствительность к регистру в именах файлов
+    "forceConsistentCasingInFileNames": true,
+    // Модульный код в ESM-стиле
+    "module": "ESNext",
+    // Разрешить поиск модулей как в Node.js
+    "moduleResolution": "Node",
+    // Можно импортировать JSON-файлы как модули
+    "resolveJsonModule": true,
+    // Требовать, чтобы каждый файл был отдельным модулем (для сборщиков типа Vite)
+    "isolatedModules": true,
+    // Не генерировать файлы .js на выходе (используется только для разработки)
+    "noEmit": true,
+    // JSX-трансформация React 17+
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@routes/*": ["src/routes/*"],
+      "@store/*": ["src/store/*"],
+      "@features/*": ["src/store/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@components/*": ["src/components/*"]
+    }
+  },
+
+  // Папки/файлы, которые TypeScript должен сканировать
+  "include": [
+    "src",
+    "src/@types/declarations.d.ts"
+  ],
+
+  // Исключаем папку с зависимостями
+  "exclude": ["node_modules"]
+}
