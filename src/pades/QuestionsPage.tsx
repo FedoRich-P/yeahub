@@ -1,11 +1,16 @@
 import { Pagination } from '@components/Pagination/Pagination';
 import { QuestionCard } from '@components/QuestionCard/QuestionCard';
 import { useGetQuestionsQuery } from '@/services/questions';
+import { useState } from 'react';
 
 export function QuestionsPage() {
-	// const [page, setPage] = useState(2);
+	const [page, setPage] = useState(2);
 
-	const { data } = useGetQuestionsQuery({ page: 1 });
+	const { data } = useGetQuestionsQuery({ page });
+
+	function handlePageChange(page: number) {
+		setPage(page);
+	}
 
 	return (
 		<section className="lg:pr-8 bg-white rounded-lg p-4">
@@ -17,7 +22,8 @@ export function QuestionsPage() {
 						question={question}
 					/>
 				))}
-			<Pagination pages={data ? Math.floor(data.total / data.limit) : 0} />
+			<Pagination totalPages={data ? Math.ceil(data.total / data.limit) : 0}  getPage={handlePageChange}/>
+			{/*<Pagination pages={data ? Math.ceil(data.total / data.limit) : 0} getPage={handlePageChange}  />*/}
 		</section>
 	);
 }
