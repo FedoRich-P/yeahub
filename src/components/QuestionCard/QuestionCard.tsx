@@ -38,7 +38,7 @@ export function QuestionCard({ question }: Props) {
 					)}
 					<p className="text-gray-700 text-sm leading-relaxed">{question.description}</p>
 					<NavLink
-						to={'/'}
+						to={`question/${question.id}`}
 						className="text-purple-600 hover:underline text-sm flex items-center gap-2 self-end">
 						Подробнее <ArrowRight className={'h-4 w-4'} />
 					</NavLink>
