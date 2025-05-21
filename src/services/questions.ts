@@ -1,34 +1,34 @@
-import { baseApi } from '@/services/baseApi';
 import { PaginatedQuestionsResponse } from '@/services/types';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const questionApi = baseApi.injectEndpoints({
+export const questionApi = createApi({
+	reducerPath: 'questionsApi',
+	baseQuery: fetchBaseQuery({ baseUrl: 'https://api.yeatwork.ru/' }),
+	tagTypes: ['Questions', 'Question'],
 	endpoints: (builder) => ({
 		getQuestions: builder.query<PaginatedQuestionsResponse, { page: number }>({
 			query: ({ page }) => `questions/public-questions?page=${page}`,
 			providesTags: (result) =>
 				result
-					? [
-						...result.data.map(({ id }) => ({ type: 'Questions' as const, id })),
-						{ type: 'Questions', id: 'ALL' },
-					]
+					? [...result.data.map(({ id }) => ({ type: 'Questions' as const, id })), { type: 'Questions', id: 'ALL' }]
 					: [{ type: 'Questions', id: 'ALL' }],
 		}),
 		getQuestionById: builder.query<Question, { id: string | undefined }>({
 			query: ({ id }) => `questions/public-questions/${id}`,
-		// 	providesTags: (result) =>
-		// 		result
-		// 			? [
-		// 				...result.data.map(({ id }) => ({ type: 'Questions' as const, id })),
-		// 				{ type: 'Questions', id: 'ALL' },
-		// 			]
-		// 			: [{ type: 'Questions', id: 'ALL' }],
+			// 	providesTags: (result) =>
+			// 		result
+			// 			? [
+			// 				...result.data.map(({ id }) => ({ type: 'Questions' as const, id })),
+			// 				{ type: 'Questions', id: 'ALL' },
+			// 			]
+			// 			: [{ type: 'Questions', id: 'ALL' }],
 		}),
 	}),
 });
 
 export const { useGetQuestionsQuery, useGetQuestionByIdQuery } = questionApi;
 
-export const questionReducer = questionApi.reducer
+export const questionReducer = questionApi.reducer;
 
 export interface User {
 	id: string;
@@ -62,7 +62,7 @@ export interface Question {
 	keywords: string[];
 	longAnswer: string;
 	shortAnswer: string;
-	status: "public" | "private" | "draft"; // можно расширить, если есть другие значения
+	status: 'public' | 'private' | 'draft'; // можно расширить, если есть другие значения
 	complexity: number;
 	rate: number;
 	createdById: string;
@@ -74,5 +74,3 @@ export interface Question {
 	createdAt: string;
 	updatedAt: string;
 }
-
-

@@ -1,10 +1,27 @@
-
 import { FilterGroup } from '@components/FilterGroup/FilterGroup';
-import { levelsFilters, ratingFilters, skillsFilters, specializationFilters } from '@/constants';
 import { Search } from 'lucide-react';
-
+import { useGetSkillsQuery, useGetSpecializationsQuery } from '@/services/specializations';
+import { useState } from 'react';
 
 export function Sidebar() {
+	const [specializationsLimit, setSpecializationsLimit] = useState<number>(5);
+	const [skillsIds, setSkillsIds] = useState(0);
+
+	const { data: specializationFilters } = useGetSpecializationsQuery({ page: 1, limit: specializationsLimit });
+	const { data: skills } = useGetSkillsQuery({ page: 1, limit: 10, specializations: skillsIds });
+
+	function handleGetId(id: number) {
+		setSkillsIds(id);
+	}
+
+	function handleSpecializationChange(total: number) {
+		setSpecializationsLimit(total);
+	}
+
+	console.log(skills);
+
+	if (!specializationFilters || !skills) return null;
+
 	return (
 		<aside className="hidden lg:block w-97">
 			<div className="bg-white rounded-xl shadow p-6 space-y-6">
@@ -19,22 +36,25 @@ export function Sidebar() {
 				<ul className={'flex flex-col gap-3'}>
 					<FilterGroup
 						title="Специализация"
-						items={specializationFilters}
+						items={specializationFilters?.data}
+						onChange={handleSpecializationChange}
+						total={specializationFilters?.total}
+						getId={handleGetId}
 						hasMore
 					/>
-					<FilterGroup
-						title="Навыки"
-						items={skillsFilters}
-						hasMore
-					/>
-					<FilterGroup
-						title="Уровень сложности"
-						items={levelsFilters}
-					/>
-					<FilterGroup
-						title="Рейтинг"
-						items={ratingFilters}
-					/>
+					{/*<FilterGroup*/}
+					{/*	title="Навыки"*/}
+					{/*	items={skills.data}*/}
+					{/*	hasMore*/}
+					{/*/>*/}
+					{/*<FilterGroup*/}
+					{/*	title="Уровень сложности"*/}
+					{/*	items={levelsFilters}*/}
+					{/*/>*/}
+					{/*<FilterGroup*/}
+					{/*	title="Рейтинг"*/}
+					{/*	items={ratingFilters}*/}
+					{/*/>*/}
 				</ul>
 			</div>
 		</aside>
