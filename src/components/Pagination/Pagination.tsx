@@ -10,6 +10,8 @@ type Props = {
 export function Pagination({ totalPages, getPage, maxVisibleButtons = 5 }: Props) {
 	const [currentPage, setCurrentPage] = useState(1);
 
+	if (totalPages <= 1) return null;
+
 	function handlePageChange(page: number) {
 		getPage(page);
 		setCurrentPage(page);
@@ -17,31 +19,30 @@ export function Pagination({ totalPages, getPage, maxVisibleButtons = 5 }: Props
 
 	const createPageNumbers = () => {
 		const pages: (number | '...')[] = [];
+		const sideButtons = Math.floor((maxVisibleButtons - 1) / 2);
 
-		if (totalPages <= maxVisibleButtons + 2) {
-			for (let i = 1; i <= totalPages; i++) {
-				pages.push(i);
-			}
-		} else {
-			const sideButtons = Math.floor((maxVisibleButtons - 1) / 2);
+		let start = Math.max(1, currentPage - sideButtons);
+		let end = Math.min(totalPages, currentPage + sideButtons);
 
-			const start = Math.max(2, currentPage - sideButtons);
-			const end = Math.min(totalPages - 1, currentPage + sideButtons);
+		if (currentPage - sideButtons < 1) {
+			end = Math.min(totalPages, maxVisibleButtons);
+		}
 
+		if (currentPage + sideButtons > totalPages) {
+			start = Math.max(1, totalPages - maxVisibleButtons + 1);
+		}
+
+		if (start > 1) {
 			pages.push(1);
+			if (start > 2) pages.push('...');
+		}
 
-			if (start > 2) {
-				pages.push('...');
-			}
+		for (let i = start; i <= end; i++) {
+			pages.push(i);
+		}
 
-			for (let i = start; i <= end; i++) {
-				pages.push(i);
-			}
-
-			if (end < totalPages - 1) {
-				pages.push('...');
-			}
-
+		if (end < totalPages) {
+			if (end < totalPages - 1) pages.push('...');
 			pages.push(totalPages);
 		}
 
@@ -51,81 +52,61 @@ export function Pagination({ totalPages, getPage, maxVisibleButtons = 5 }: Props
 	const pageNumbers = createPageNumbers();
 
 	function incrementPage() {
-		if (totalPages > currentPage) {
-			setCurrentPage((prevState) => prevState + 1)
+		if (currentPage < totalPages) {
+			handlePageChange(currentPage + 1);
 		}
 	}
 
 	function decrementPage() {
-		if(currentPage > 1) {
-			setCurrentPage((prevState) => prevState - 1)
+		if (currentPage > 1) {
+			handlePageChange(currentPage - 1);
 		}
 	}
 
 	return (
 		<footer className="flex items-center space-x-3 mt-6 w-[600px] mx-auto">
 			<button
-				className={'flex items-center justify-center w-12 h-12 rounded-lg  bg-purple-600 text-white'}
-				onClick={decrementPage}>
-				<ArrowLeft />
+				className={`flex items-center justify-center w-6 h-8 rounded-lg ${
+					currentPage === 1 ? 'bg-gray-300' : 'bg-purple-600 hover:bg-purple-700'
+				} text-white`}
+				onClick={decrementPage}
+				disabled={currentPage === 1}>
+				<ArrowLeft className={'w-5 h-5'} />
 			</button>
-			<ul className={'flex items-center justify-center gap-3 w-full overflow-hidden'}>
+
+			<ul className="flex items-center justify-center gap-3 w-full overflow-hidden">
 				{pageNumbers.map((page, index) =>
 					page === '...' ? (
-						<span key={`dots-${index}`}>...</span>
+						<span
+							key={`dots-${index}`}
+							className="flex items-end px-2 text-gray-500"
+						>
+              ...
+            </span>
 					) : (
 						<li key={index}>
 							<button
 								onClick={() => handlePageChange(page)}
-								className={`flex items-center justify-center w-12 h-12 rounded-lg ${page === currentPage ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300 text-gray-700 p-1.5'}`}>
+								className={`flex items-center justify-center w-8 h-8 rounded-lg text-base transition-colors ${
+									page === currentPage
+										? 'bg-purple-600 text-white'
+										: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+								}`}>
 								{page}
 							</button>
 						</li>
-					),
+					)
 				)}
 			</ul>
+
 			<button
-				className={'flex items-center justify-center w-12 h-12 rounded-lg  bg-purple-600 text-white'}
-				onClick={incrementPage}>
-				<ArrowRight />
+				className={`flex items-center justify-center w-6 h-8 rounded-lg ${
+					currentPage === totalPages ? 'bg-gray-300' : 'bg-purple-600 hover:bg-purple-700'
+				} text-white`}
+				onClick={incrementPage}
+				disabled={currentPage === totalPages}>
+				<ArrowRight className={'w-5 h-5'} />
 			</button>
 		</footer>
 	);
 }
-
-// interface PaginationProps {
-// 	totalPages: number | undefined;
-// 	// currentPage: number;
-// 	getPage: (page: number) => void;
-// 	maxVisibleButtons?: number; // например: 5
-// }
-//
-// export const Pagination: React.FC<PaginationProps> = ({
-// 	totalPages = 2,
-// 	// currentPage = 1,
-// 	getPage,
-// 	maxVisibleButtons = 7,
-// }) => {
-// 	return (
-// 		<div style={{ display: 'flex', gap: '8px' }}>
-// 			{pageNumbers.map((page, index) =>
-// 				page === '...' ? (
-// 					<span key={`dots-${index}`}>...</span>
-// 				) : (
-// 					<button
-// 						key={page}
-// 						onClick={() => onPageChange(page)}
-// 						style={{
-// 							padding: '4px 8px',
-// 							fontWeight: page === currentPage ? 'bold' : 'normal',
-// 							border: '1px solid #ccc',
-// 							borderRadius: '4px',
-// 							backgroundColor: page === currentPage ? '#ddd' : '#fff',
-// 						}}>
-// 						{page}
-// 					</button>
-// 				),
-// 			)}
-// 		</div>
-// 	);
-// };

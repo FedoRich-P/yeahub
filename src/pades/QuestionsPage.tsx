@@ -23,7 +23,6 @@ export function QuestionsPage() {
 					/>
 				))}
 			<Pagination totalPages={data ? Math.ceil(data.total / data.limit) : 0}  getPage={handlePageChange}/>
-			{/*<Pagination pages={data ? Math.ceil(data.total / data.limit) : 0} getPage={handlePageChange}  />*/}
 		</section>
 	);
 }
