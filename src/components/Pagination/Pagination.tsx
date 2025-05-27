@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router';
 
 type Props = {
 	totalPages: number;
@@ -9,6 +10,11 @@ type Props = {
 
 export function Pagination({ totalPages, getPage, maxVisibleButtons = 5 }: Props) {
 	const [currentPage, setCurrentPage] = useState(1);
+	const [searchParams] = useSearchParams();
+
+
+	const activePage = searchParams.get('page');
+
 
 	if (totalPages <= 1) return null;
 
@@ -88,7 +94,7 @@ export function Pagination({ totalPages, getPage, maxVisibleButtons = 5 }: Props
 							<button
 								onClick={() => handlePageChange(page)}
 								className={`flex items-center justify-center w-8 h-8 rounded-lg text-base transition-colors ${
-									page === currentPage
+									page === Number(activePage)
 										? 'bg-purple-600 text-white'
 										: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
 								}`}>

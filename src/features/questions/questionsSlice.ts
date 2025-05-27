@@ -1,26 +1,30 @@
-// import { createSlice } from '@reduxjs/toolkit'
-// import type { PayloadAction } from '@reduxjs/toolkit'
-//
-// interface CounterState {
-// 	value: number
-// }
-//
-// // Define the initial state using that type
-// const initialState: CounterState = {
-// 	value: 0,
-// }
-//
-// export const counterSlice = createSlice({
-// 	name: 'counter',
-// 	// `createSlice` will infer the state type from the `initialState` argument
-// 	initialState,
-// 	reducers: {
-// 	},
-// })
-//
-// export const { increment, decrement, incrementByAmount } = counterSlice.actions
-//
-// // Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value
-//
-// export default counterSlice.reducer
+import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '@/app/store';
+
+interface questionsState {
+	specializations: number;
+	skills: string[];
+}
+
+const initialState: questionsState = {
+	specializations: 1,
+	skills: [],
+}
+
+export const questionsSlice = createSlice({
+	name: 'questions',
+	initialState,
+	reducers: {
+		setSkills: (state, action) => {
+			state.skills = action.payload;
+		},
+		setSpecializations: (state, action) => {
+			state.specializations = action.payload;
+		}
+	},
+})
+
+export const {setSkills, setSpecializations} = questionsSlice.actions
+
+export const selectSkills = (state: RootState) => state.questions.skills
+export const selectSpecializations = (state: RootState) => state.questions.specializations

@@ -1,16 +1,37 @@
-import { FilterGroup } from '@components/FilterGroup/FilterGroup';
 import { Search } from 'lucide-react';
 import { useGetSkillsQuery, useGetSpecializationsQuery } from '@/services/specializations';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch } from '@/app/hooks';
+import { setSkills, setSpecializations } from '@/features/questions/questionsSlice';
+import { SpecializationFilter } from '@components/FilterGroup/SpecializationFilter';
+import { SkillsFilter } from '@components/FilterGroup/SkillsFilter';
 
 export function Sidebar() {
 	const [specializationsLimit, setSpecializationsLimit] = useState<number>(5);
-	const [skillsIds, setSkillsIds] = useState(0);
+	const [skillsLimit, setSkillsLimit] = useState<number>(5);
+	const [skillsIds, setSkillsIds] = useState<number | null>(null);
+	const [specializationsIds, setSpecializationsIds] = useState<number | null>(null);
+
+	const dispatch = useAppDispatch();
 
 	const { data: specializationFilters } = useGetSpecializationsQuery({ page: 1, limit: specializationsLimit });
-	const { data: skills } = useGetSkillsQuery({ page: 1, limit: 10, specializations: skillsIds });
+	const { data: skills } = useGetSkillsQuery({ page: 1, limit: skillsLimit, specializations: specializationsIds });
 
-	function handleGetId(id: number) {
+	// console.log('skills', skills);
+
+	useEffect(() => {
+		dispatch(setSkills(skillsIds));
+	}, [skillsIds, dispatch]);
+
+	useEffect(() => {
+		dispatch(setSpecializations(specializationsIds));
+	}, [specializationsIds, dispatch]);
+
+	function handleGetSpecId(id: number) {
+		setSpecializationsIds(id);
+	}
+
+	function handleGetSkillsId(id: number) {
 		setSkillsIds(id);
 	}
 
@@ -18,7 +39,9 @@ export function Sidebar() {
 		setSpecializationsLimit(total);
 	}
 
-	console.log(skills);
+	function handleSkillsChange(total: number) {
+		setSkillsLimit(total);
+	}
 
 	if (!specializationFilters || !skills) return null;
 
@@ -34,19 +57,22 @@ export function Sidebar() {
 					/>
 				</form>
 				<ul className={'flex flex-col gap-3'}>
-					<FilterGroup
+					<SpecializationFilter
 						title="Специализация"
 						items={specializationFilters?.data}
 						onChange={handleSpecializationChange}
 						total={specializationFilters?.total}
-						getId={handleGetId}
+						getId={handleGetSpecId}
 						hasMore
 					/>
-					{/*<FilterGroup*/}
-					{/*	title="Навыки"*/}
-					{/*	items={skills.data}*/}
-					{/*	hasMore*/}
-					{/*/>*/}
+					<SkillsFilter
+						title="Навыки"
+						items={skills.data}
+						onChange={handleSkillsChange}
+						getId={handleGetSkillsId}
+						total={skills.total}
+						hasMore
+					/>
 					{/*<FilterGroup*/}
 					{/*	title="Уровень сложности"*/}
 					{/*	items={levelsFilters}*/}
@@ -59,4 +85,54 @@ export function Sidebar() {
 			</div>
 		</aside>
 	);
+}
+
+{
+	/*<FilterGroup*/
+}
+{
+	/*	title="Специализация"*/
+}
+{
+	/*	items={specializationFilters?.data}*/
+}
+{
+	/*	onChange={handleSpecializationChange}*/
+}
+{
+	/*	total={specializationFilters?.total}*/
+}
+{
+	/*	getId={handleGetSpecId}*/
+}
+{
+	/*	hasMore*/
+}
+{
+	/*/>*/
+}
+
+{
+	/*<FilterGroup*/
+}
+{
+	/*	title="Навыки"*/
+}
+{
+	/*	items={skills.data}*/
+}
+{
+	/*	onChange={handleSkillsChange}*/
+}
+{
+	/*	getId={handleGetSkillsId}*/
+}
+{
+	/*	total={skills.total}*/
+}
+{
+	/*	hasMore*/
+}
+{
+	/*/>*/
 }

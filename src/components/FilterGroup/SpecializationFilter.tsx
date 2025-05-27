@@ -1,19 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 export type SpecializationType = {
 	id: number;
 	title: string | null;
 	icon?: IconProp;
-};
-
-export type SpecializationsApiType = {
-	data: SpecializationType[];
-	limit: number;
-	page: number;
-	total: number;
 };
 
 type Props = {
@@ -25,42 +18,34 @@ type Props = {
 	total: number;
 };
 
-export function FilterGroup({ title, items, hasMore, onChange, total, getId }: Props) {
-	const [id, setId] = useState<number | null>(null);
-	const [searchParams, setSearchParams] = useSearchParams();
+export function SpecializationFilter({ title, items, hasMore, onChange, total, getId }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 
-	// const { data } = useGetSpecializationsQuery({id});
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	function handleGetId(id: number) {
-		setId(id);
-		getId(id);
+	const specializationId = Number(searchParams.get('specialization'));
 
-		const params = new URLSearchParams(searchParams.toString());
+	const handleGetId = useCallback(
+		(id: number) => {
+			getId(id);
 
-		const current = params.get('skills');
-		const ids = current ? current.split(',').map(Number) : [];
+			const isCurrent = specializationId === id;
 
-		let updated: number[];
-		if (ids.includes(id)) {
-			updated = ids.filter((i) => i !== id);
-		} else {
-			updated = [...ids, id];
-		}
+			if (isCurrent) {
+				searchParams.delete('specialization');
+			} else {
+				searchParams.set('specialization', id.toString());
+			}
 
-		if (updated.length > 0) {
-			params.set('skills', updated.join(','));
-		} else {
-			params.delete('skills');
-		}
+			setSearchParams(searchParams);
+		},
+		[getId, searchParams, setSearchParams, specializationId],
+	);
 
-		setSearchParams(params);
-	}
-
-	function handleClick() {
+	const handleClick = useCallback(() => {
 		setIsOpen((prev) => !prev);
 		onChange(isOpen ? 5 : total);
-	}
+	}, [onChange, total, isOpen]);
 
 	return (
 		<li>
@@ -70,7 +55,7 @@ export function FilterGroup({ title, items, hasMore, onChange, total, getId }: P
 					<li
 						key={item.id}
 						onClick={() => handleGetId(item.id)}
-						className="px-3 py-2 flex items-center bg-white border border-gray-200 rounded-lg text-base text-gray-700 cursor-pointer transition-all duration-500 hover:bg-purple-50">
+						className={`${specializationId === item.id ? 'bg-purple-300 text-white' : 'bg-white'} px-3 py-2 flex items-center border border-gray-200 rounded-lg text-base text-gray-700 cursor-pointer transition-all duration-500 hover:bg-purple-50`}>
 						{item.icon && (
 							<FontAwesomeIcon
 								icon={item.icon}
