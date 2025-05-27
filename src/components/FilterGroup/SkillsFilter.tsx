@@ -1,20 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-
-export type SpecializationType = {
-	id: number;
-	title: string | null;
-	icon?: IconProp;
-};
-
-export type SpecializationsApiType = {
-	data: SpecializationType[];
-	limit: number;
-	page: number;
-	total: number;
-};
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SpecializationType } from '@components/FilterGroup/FilterGroup';
 
 type Props = {
 	title: string;
@@ -25,15 +12,22 @@ type Props = {
 	total: number;
 };
 
-export function FilterGroup({ title, items, hasMore, onChange, total, getId }: Props) {
-	const [id, setId] = useState<number | null>(null);
+export function SkillsFilter({ title, items, hasMore, onChange, total, getId }: Props) {
+	const [skills, setSkills] = useState<string[] | string>(['']);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [isOpen, setIsOpen] = useState(false);
 
-	// const { data } = useGetSpecializationsQuery({id});
+	const skillsFromUrl = searchParams.get('skills');
+
+	useEffect(() => {
+		if (skillsFromUrl) {
+			setSkills(skillsFromUrl.split(','));
+		} else {
+			setSkills('');
+		}
+	}, [skillsFromUrl]);
 
 	function handleGetId(id: number) {
-		setId(id);
 		getId(id);
 
 		const params = new URLSearchParams(searchParams.toString());
@@ -70,7 +64,7 @@ export function FilterGroup({ title, items, hasMore, onChange, total, getId }: P
 					<li
 						key={item.id}
 						onClick={() => handleGetId(item.id)}
-						className="px-3 py-2 flex items-center bg-white border border-gray-200 rounded-lg text-base text-gray-700 cursor-pointer transition-all duration-500 hover:bg-purple-50">
+						className={`${skills.includes(item.id.toString()) ? 'bg-purple-300 text-white' : 'bg-white'} px-3 py-2 flex items-center border border-gray-200 rounded-lg text-base text-gray-700 cursor-pointer transition-all duration-500 hover:bg-purple-50`}>
 						{item.icon && (
 							<FontAwesomeIcon
 								icon={item.icon}

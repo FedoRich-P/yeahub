@@ -7,7 +7,7 @@ export function MainLayout() {
 	return (
 		<div className="flex flex-col min-h-screen bg-gray-50 gap-5">
 			<Header />
-			<main className="max-w-screen-xl w-full mx-auto grid grid-cols-[1fr_390px] gri gap-5">
+			<main className="max-w-screen-xl w-full mx-auto grid grid-cols-[850px_390px] gap-5">
 				<Outlet />
 				<Sidebar />
 			</main>

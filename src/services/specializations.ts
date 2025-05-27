@@ -17,15 +17,8 @@ export const specializationsApi = createApi({
 					: [{ type: 'Specializations', id: 'ALL' }],
 		}),
 
-		getSkills: builder.query<void, {page?: number, limit?: number, specializations: number}>({
-			query: ({page, limit, specializations}) => `skills?page=${page}&limit=${limit}&specializations=${specializations}`,
-			// providesTags: (result) =>
-			// 	result
-			// 		? [
-			// 			...result.data.map(({ id }) => ({ type: 'Specializations' as const, id })),
-			// 			{ type: 'Specializations', id: 'ALL' },
-			// 		]
-			// 		: [{ type: 'Specializations', id: 'ALL' }],
+		getSkills: builder.query<SpecializationsApiType, {page?: number, limit?: number, specializations: number | null}>({
+			query: ({page, limit, specializations}) => `skills?page=${page}&limit=${limit}${specializations && `&specializations=${specializations}`}`,
 		}),
 	}),
 });
