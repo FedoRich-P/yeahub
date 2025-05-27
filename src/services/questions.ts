@@ -4,10 +4,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const questionApi = createApi({
 	reducerPath: 'questionsApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://api.yeatwork.ru/' }),
-	tagTypes: ['Questions', 'Question'],
+	tagTypes: ['Questions'],
 	endpoints: (builder) => ({
-		getQuestions: builder.query<PaginatedQuestionsResponse, { page: number }>({
-			query: ({ page }) => `questions/public-questions?page=${page}`,
+		getQuestions: builder.query<PaginatedQuestionsResponse, { page: string |  null, limit?: number, specialization: string | null, skills: string[] | null }>({
+			query: ({ page = '1', specialization, skills }) => {
+				const params = new URLSearchParams();
+				params.append("page", String(page));
+				if (specialization) params.append("specialization", specialization.toString());
+				if (skills?.length) params.append("skills", skills.join(","));
+				// params.append("limit", String(limit));
+				// if (complexity?.length) params.append("complexity", complexity.join(","));
+				return `questions/public-questions?${params.toString()}`;
+			},
 			providesTags: (result) =>
 				result
 					? [...result.data.map(({ id }) => ({ type: 'Questions' as const, id })), { type: 'Questions', id: 'ALL' }]
@@ -15,18 +23,14 @@ export const questionApi = createApi({
 		}),
 		getQuestionById: builder.query<Question, { id: string | undefined }>({
 			query: ({ id }) => `questions/public-questions/${id}`,
-			// 	providesTags: (result) =>
-			// 		result
-			// 			? [
-			// 				...result.data.map(({ id }) => ({ type: 'Questions' as const, id })),
-			// 				{ type: 'Questions', id: 'ALL' },
-			// 			]
-			// 			: [{ type: 'Questions', id: 'ALL' }],
+		}),
+		getSpecializations: builder.query<Question, { id: number | null }>({
+			query: ({ id }) => `specializations/${id}`,
 		}),
 	}),
 });
 
-export const { useGetQuestionsQuery, useGetQuestionByIdQuery } = questionApi;
+export const { useGetQuestionsQuery, useGetQuestionByIdQuery, useGetSpecializationsQuery } = questionApi;
 
 export const questionReducer = questionApi.reducer;
 

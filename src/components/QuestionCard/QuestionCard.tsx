@@ -16,8 +16,8 @@ export function QuestionCard({ question }: Props) {
 			<button
 				className="w-full flex justify-between items-center px-6 py-4 cursor-pointer"
 				onClick={() => setOpen(!open)}>
-				<h3 className="text-lg font-medium line-clamp-1 pr-1">{question.title}</h3>
-				{open ? <ChevronUp className={'w-5 h-5 text-purple'} /> : <ChevronDown className={'w-5 h-5 text-purple'} />}
+				<span className="text-lg text-start font-medium line-clamp-1 pr-1">{question.title}</span>
+				{open ? <ChevronUp className={'w-5 h-5 shrink-0 text-purple'} /> : <ChevronDown className={'w-5 h-5 shrink-0 text-purple'} />}
 			</button>
 			{open && (
 				<div className="px-6 pb-6 space-y-4 flex flex-col">
