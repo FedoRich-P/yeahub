@@ -4,6 +4,6 @@ export const baseApi = createApi({
 	reducerPath: 'questionsApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://api.yeatwork.ru/' }),
 	endpoints: () => ({}),
-	tagTypes: ['Questions', 'Question'],
+	tagTypes: ['Questions', 'Question', 'Skills', 'Specializations'],
 })
 
