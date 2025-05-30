@@ -1,10 +1,9 @@
-import { baseApi } from '@/services/baseApi';
-import { SpecializationsApiType } from '@/features/questions-filters/model/types';
-import { SkillsApi } from '@/entities/skills/model';
+import { baseApi } from '@shared/api/baseApi';
+import { SkillsApi, SkillsApiType } from '@/entities/skills/model';
 
 export const skillsApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
-		getSkills: builder.query<SpecializationsApiType, SkillsApi>({
+		getSkills: builder.query<SkillsApiType, SkillsApi>({
 			query: ({page, limit, specializations}) => `skills?page=${page}&limit=${limit}${specializations && `&specializations=${specializations}`}`,
 			providesTags: (result) =>
 				result

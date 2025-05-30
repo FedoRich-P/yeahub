@@ -5,4 +5,5 @@ export interface QuestionApi {
 	skills: string[] ,
 	complexity: string[],
 	rate: string[],
+	title: string
 }

@@ -1,16 +1,16 @@
 import { useParams } from 'react-router';
-import { NotFound } from '@shared/ui/NotFound';
 import { useGetQuestionByIdQuery } from '@/pades/QuestionPage/api/questionApi';
 import { QuestionHeader } from '@/pades/QuestionPage/ui/QuestionHeader';
 import { QuestionShortAnswer } from '@/pades/QuestionPage/ui/QuestionShortAnswer';
 import { QuestionLongAnswer } from '@/pades/QuestionPage/ui/QuestionLongAnswer';
+import { NotFound } from '@/pades/NotFoundPage';
 
 export function QuestionPage() {
 	const { id } = useParams();
 
 	const { data: question, error } = useGetQuestionByIdQuery({ id });
 
-	if (error) return <NotFound />;
+	if (error) return <NotFound/>;
 	if (!question) return <>...</>;
 
 	return (

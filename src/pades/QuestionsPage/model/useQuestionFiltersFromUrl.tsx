@@ -9,5 +9,6 @@ export function useQuestionFiltersFromUrl() {
 		skills: searchParams.get('skills')?.split(',') || [],
 		complexity: searchParams.get('complexity')?.split(',') || [],
 		rate: searchParams.get('rate')?.split(',') || [],
+		title: searchParams.get('title') || '',
 	};
 }
