@@ -51,3 +51,9 @@ export type PaginatedQuestionsResponse ={
 	page: number;
 	limit: number;
 }
+
+export type FilterGroupType = {
+	id: number
+	label: string;
+	value: string;
+};

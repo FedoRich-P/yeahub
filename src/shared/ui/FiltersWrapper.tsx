@@ -1,14 +1,14 @@
 import { ReactNode, useCallback, useState } from 'react';
-import { DEFAULT_LIMIT } from '@/features/questions-filters/model/constants';
+import { DEFAULT_LIMIT } from '@shared/constants';
 
-type Props = {
+interface Props {
 	title: string;
 	onChange?: (total: number) => void;
 	total?: number;
 	children: ReactNode;
 };
 
-export function FiltersLayout({ title, onChange, total, children }: Props) {
+export function FiltersWrapper({ title, onChange, total, children }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const hasMore = total && total > DEFAULT_LIMIT;

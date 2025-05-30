@@ -23,7 +23,7 @@ export function Header() {
 							База вопросов
 						</NavLink>
 						<NavLink
-							to={'/'}
+							to={PATH.TRAINING}
 							className={({ isActive }) =>
 								`${isActive ? 'text-purple bg-gray-100 shadow-md' : 'text-gray-600'} rounded-lg py-1.5 p-2 hover:text-purple-600`
 							}>

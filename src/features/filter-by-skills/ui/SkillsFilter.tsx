@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { FilterTag } from '@shared/ui/FilterTag';
 import { FiltersType } from '@/features/questions-filters/model/types';
-import { FiltersLayout } from '@/features/questions-filters/ui/FiltersLayout';
+import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
 import { toggleSkillsParam } from '@/features/filter-by-skills/lib/toggleSkillsParam';
 
 type Props = {
@@ -27,10 +27,8 @@ export function SkillsFilter({ title, items, onChange, total }: Props) {
 		}
 	}, [skillsFromUrl]);
 
-	const handleToggleValue = useCallback(
-		(id: number) => {
-			const newParams = toggleSkillsParam({ searchParams, id });
-			setSearchParams(newParams);
+	const handleToggleValue = useCallback((id: number) => {
+			setSearchParams(toggleSkillsParam({ searchParams, id }));
 		},
 		[searchParams, setSearchParams],
 	);
@@ -41,7 +39,7 @@ export function SkillsFilter({ title, items, onChange, total }: Props) {
 	}, [onChange, total, isOpen]);
 
 	return (
-		<FiltersLayout
+		<FiltersWrapper
 			title={title}
 			total={total}
 			onChange={handleClick}>
@@ -56,6 +54,6 @@ export function SkillsFilter({ title, items, onChange, total }: Props) {
 					</FilterTag>
 				);
 			})}
-		</FiltersLayout>
+		</FiltersWrapper>
 	);
 }

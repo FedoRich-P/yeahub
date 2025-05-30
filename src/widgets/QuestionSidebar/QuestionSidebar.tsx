@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router';
-import { QuestionSkill } from '@/services/types';
+import { QuestionSkill } from '@shared/types';
 import { QuestionBadge } from '@shared/ui/QuestionBadge';
 import { useGetQuestionByIdQuery } from '@/pades/QuestionPage/api/questionApi';
 

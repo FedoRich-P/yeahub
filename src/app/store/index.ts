@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { questionsSlice } from '@/features/questions/model/questionsSlice';
-import { baseApi } from '@/services/baseApi';
+import { questionsSlice } from '@/features/search-questions/questionsSlice';
+import { baseApi } from '@shared/api/baseApi';
 
-export const index = configureStore({
+export const store = configureStore({
 	reducer: {
 		[baseApi.reducerPath]: baseApi.reducer,
 		[questionsSlice.name]: questionsSlice.reducer,
@@ -11,7 +11,7 @@ export const index = configureStore({
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });
 
-export type RootState = ReturnType<typeof index.getState>;
-export type AppDispatch = typeof index.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-setupListeners(index.dispatch);
+setupListeners(store.dispatch);

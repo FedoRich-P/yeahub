@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { FilterTag } from '@shared/ui/FilterTag';
 import { FiltersType } from '@/features/questions-filters/model/types';
-import { FiltersLayout } from '@/features/questions-filters/ui/FiltersLayout';
+import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
 import {
 	toggleSpecializationParam
 } from '@/features/filter-by-specialization/lib/toggleSpecializationParam';
@@ -23,8 +23,7 @@ export function SpecializationFilter({ title, items, onChange, total, getId }: P
 	const handleToggleValue = useCallback(
 		(id: number) => {
 			getId(id);
-			const newParams = toggleSpecializationParam({searchParams, id, params});
-			setSearchParams(newParams);
+			setSearchParams(toggleSpecializationParam({searchParams, id, params}));
 		},
 		[getId, searchParams, setSearchParams, params],
 	);
@@ -35,7 +34,7 @@ export function SpecializationFilter({ title, items, onChange, total, getId }: P
 	}, [onChange, total, isOpen]);
 
 	return (
-		<FiltersLayout
+		<FiltersWrapper
 			title={title}
 			total={total}
 			onChange={handleClick}>
@@ -47,6 +46,6 @@ export function SpecializationFilter({ title, items, onChange, total, getId }: P
 					<span>{item.title}</span>
 				</FilterTag>
 			))}
-		</FiltersLayout>
+		</FiltersWrapper>
 	);
 }

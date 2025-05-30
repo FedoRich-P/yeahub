@@ -1,5 +1,5 @@
-import { baseApi } from '@/services/baseApi';
-import { Question } from '@/services/types';
+import { baseApi } from '@shared/api/baseApi';
+import { Question } from '@shared/types';
 
 export const questionApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({

@@ -1,15 +1,15 @@
 import { Pagination } from '@shared/ui/Pagination/Pagination';
 import { QuestionCard } from '@/entities/question/ui/QuestionCard';
-import { NotFound } from '@shared/ui/NotFound';
 import { useGetQuestionsQuery } from '@/entities/question/api/questionsApi';
 import { useQuestionFiltersFromUrl } from '@/pades/QuestionsPage/model/useQuestionFiltersFromUrl';
 import { useSearchParams } from 'react-router';
+import { NotFound } from '@/pades/NotFoundPage';
 
 export function QuestionsPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const { page, specialization, skills, complexity, rate } = useQuestionFiltersFromUrl();
+	const { page, specialization, skills, complexity, rate, title } = useQuestionFiltersFromUrl();
 
-	const { data } = useGetQuestionsQuery({ page, specialization, skills, complexity, rate, limit: 10 });
+	const { data } = useGetQuestionsQuery({ page, specialization, skills, complexity, rate, limit: 10, title });
 
 	const totalPages = data ? Math.ceil(data.total / data.limit) : 0;
 
