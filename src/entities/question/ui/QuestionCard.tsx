@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { NavLink } from 'react-router';
-import { Question } from '@/services/types';
+import { Question } from '@shared/types';
 import { PATH } from '@/app/routes/routes';
 import { QuestionBadge } from '@shared/ui/QuestionBadge';
 

@@ -1,6 +1,5 @@
-import { baseApi } from '@/services/baseApi';
-import { SpecializationsApiType } from '@/features/questions-filters/model/types';
-import { SpecializationsResApi } from '@/entities/specialization/model';
+import { baseApi } from '@shared/api/baseApi';
+import { SpecializationsApiType, SpecializationsResApi } from '@/entities/specialization/model';
 
 export const specializationsApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({

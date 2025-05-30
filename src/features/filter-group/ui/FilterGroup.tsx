@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import { parseRange } from '@shared/lib/parseRange';
+import { parseRange } from '@shared/lib/utils/parseRange';
 import { FilterTag } from '@shared/ui/FilterTag';
-import { FilterGroupType } from '@/features/questions-filters/model/types';
-import { FiltersLayout } from '@/features/questions-filters/ui/FiltersLayout';
+import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
 import { toggleFilterParam } from '@/features/filter-group/lib/toggleFilterParam';
+import { FilterGroupType } from '@shared/types';
 
 type Props = {
 	title: string;
@@ -18,14 +18,14 @@ export function FilterGroup({ title, items, paramName }: Props) {
 
 	const handleToggleValue = useCallback(
 		(value: string) => {
-			const newParams = toggleFilterParam(searchParams, paramName, value);
+			const newParams = toggleFilterParam({ searchParams, paramName, value });
 			setSearchParams(newParams, { replace: true });
 		},
 		[searchParams, setSearchParams, paramName],
 	);
 
 	return (
-		<FiltersLayout title={title}>
+		<FiltersWrapper title={title}>
 			{items?.map((item) => {
 				const isActive = complexity.some((c) => parseRange(item.value).includes(c))
 				return (
@@ -37,6 +37,6 @@ export function FilterGroup({ title, items, paramName }: Props) {
 					</FilterTag>
 				);
 			})}
-		</FiltersLayout>
+		</FiltersWrapper>
 	);
 }

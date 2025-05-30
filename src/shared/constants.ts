@@ -1,6 +1,8 @@
-import { FilterGroupType } from '@/features/questions-filters/model/types';
+import { FilterGroupType } from '@shared/types';
 
-export const levelsFilters: FilterGroupType[] = [
+export const DEFAULT_LIMIT = 5;
+
+export const complexityFilters: FilterGroupType[] = [
 	{ id: 1, label: '1-3', value: '1-3' },
 	{ id: 2, label: '4-6', value: '4-6' },
 	{ id: 3, label: '7-8', value: '7-8' },
@@ -14,5 +16,3 @@ export const ratingFilters: FilterGroupType[] = [
 	{ id: 4, label: '4', value: '4' },
 	{ id: 5, label: '5', value: '5' },
 ];
-
-export const DEFAULT_LIMIT = 5;

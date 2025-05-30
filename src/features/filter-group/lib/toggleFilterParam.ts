@@ -1,15 +1,19 @@
-import { parseRange } from '@shared/lib/parseRange';
+import { parseRange } from '@shared/lib/utils/parseRange';
 
-export function toggleFilterParam(
+interface Props {
 	searchParams: URLSearchParams,
 	paramName: string,
 	value: string
-): URLSearchParams {
+}
+
+export function toggleFilterParam({searchParams, paramName, value}: Props) {
 	const newParams = new URLSearchParams(searchParams);
 	const currentValues = newParams.get(paramName)?.split(',') || [];
 
 	const valuesToToggle = parseRange(value);
-	const newValues = currentValues.some((v) => valuesToToggle.includes(v))
+
+	const newValues = currentValues
+		.some((v) => valuesToToggle.includes(v))
 		? currentValues.filter((v) => !valuesToToggle.includes(v))
 		: [...currentValues, ...valuesToToggle];
 

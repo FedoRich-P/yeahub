@@ -5,19 +5,19 @@ interface Props {
 
 export function toggleSkillsParam({ searchParams, id }: Props) {
 	const newParams = new URLSearchParams(searchParams);
-	const current = newParams.get('skills');
-	const ids = current ? current.split(',').map(Number) : [];
+	const currentParams = newParams.get('skills');
+	const skills = currentParams ? currentParams.split(',').map(Number) : [];
 
-	let updated: number[];
+	let listSkillsId: number[];
 
-	if (ids.includes(id)) {
-		updated = ids.filter((i) => i !== id);
+	if (skills.includes(id)) {
+		listSkillsId = skills.filter((i) => i !== id);
 	} else {
-		updated = [...ids, id];
+		listSkillsId = [...skills, id];
 	}
 
-	if (updated.length > 0) {
-		newParams.set('skills', updated.join(','));
+	if (listSkillsId.length > 0) {
+		newParams.set('skills', listSkillsId.join(','));
 		newParams.set('page', '1');
 	} else {
 		newParams.delete('skills');
