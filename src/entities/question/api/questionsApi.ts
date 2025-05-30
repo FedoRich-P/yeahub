@@ -10,11 +10,11 @@ export const questionsApi = baseApi.injectEndpoints({
 				const params = new URLSearchParams();
 				params.append("page", String(page));
 				params.append("limit", String(limit));
-				if (specialization) params.append("specialization", specialization.toString());
+				if (title) params.append("title", title);
+				if (rate?.length) params.append("rate", rate.join(","));
 				if (skills?.length) params.append("skills", skills.join(","));
 				if (complexity?.length) params.append("complexity", complexity.join(","));
-				if (rate?.length) params.append("rate", rate.join(","));
-				if (title) params.append("title", title);
+				if (specialization) params.append("specialization", specialization.toString());
 				return `questions/public-questions?${params.toString()}`;
 			},
 			providesTags: (result) =>
