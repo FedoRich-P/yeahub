@@ -3,11 +3,11 @@ import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { NavLink } from 'react-router';
 import { Question } from '@shared/types';
 import { PATH } from '@/app/routes/routes';
-import { QuestionBadge } from '@shared/ui/QuestionBadge';
+import { QuestionBadge } from '@/shared';
 
 interface Props  {
 	question: Question;
-};
+}
 
 export function QuestionCard({ question }: Props) {
 	const [open, setOpen] = useState(false);

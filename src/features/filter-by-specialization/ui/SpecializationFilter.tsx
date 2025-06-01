@@ -1,11 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { FilterTag } from '@shared/ui/FilterTag';
-import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
-import {
-	toggleSpecializationParam
-} from '@/features/filter-by-specialization/lib/toggleSpecializationParam';
-import { FiltersType } from '@/entities/skills/model';
+import { FiltersType } from '@/entities/skills';
+import { toggleSpecializationParam } from '@/features/filter-by-specialization';
+import { FiltersWrapper, FilterTag } from '@/shared';
 
 type Props = {
 	title: string;

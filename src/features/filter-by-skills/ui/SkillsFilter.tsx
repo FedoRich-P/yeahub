@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { FilterTag } from '@shared/ui/FilterTag';
-import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
-import { toggleSkillsParam } from '@/features/filter-by-skills/lib/toggleSkillsParam';
-import { FiltersType } from '@/entities/skills/model';
+import { FilterTag } from '@shared/ui/Filters/FilterTag';
+import { FiltersWrapper } from '@shared/ui/Filters/FiltersWrapper';
+import { FiltersType } from '@/entities/skills';
+import { toggleSkillsParam } from '@/features/filter-by-skills';
 
 type Props = {
 	title: string;
