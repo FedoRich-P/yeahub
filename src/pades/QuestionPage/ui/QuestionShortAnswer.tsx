@@ -4,7 +4,6 @@ interface Props {
 	shortAnswer: string;
 }
 
-
 export function QuestionShortAnswer({ shortAnswer }: Props) {
 	return (
 		<section className="bg-white rounded-2xl p-6 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
