@@ -6,7 +6,7 @@ interface Props {
 	onChange?: (total: number) => void;
 	total?: number;
 	children: ReactNode;
-};
+}
 
 export function FiltersWrapper({ title, onChange, total, children }: Props) {
 	const [isOpen, setIsOpen] = useState(false);

@@ -1,9 +1,7 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import { FilterTag } from '@shared/ui/Filters/FilterTag';
-import { FiltersWrapper } from '@shared/ui/Filters/FiltersWrapper';
 import { FilterGroupType } from '@shared/types';
-import { parseRange } from '@/shared';
+import { FiltersWrapper, FilterTag, parseRange } from '@/shared';
 import { toggleFilterParam } from '@/features/filter-group';
 
 type Props = {
