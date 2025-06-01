@@ -1,15 +1,10 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
+import { FiltersType } from '@/entities/skills';
 
 export interface SpecializationsResApi {
 	page?: number;
 	limit?: number
 }
-
-type FiltersType = {
-	id: number;
-	title: string | null;
-	icon?: IconProp;
-};
 
 export type SpecializationsApiType = {
 	data: FiltersType[];

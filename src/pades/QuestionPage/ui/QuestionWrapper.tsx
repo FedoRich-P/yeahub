@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router';
 import { QuestionSidebar } from '@/widgets/QuestionSidebar/QuestionSidebar';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 
-export function QuestionLayout() {
+export function QuestionWrapper() {
 	const navigate = useNavigate();
 	return (
 		<>

@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router';
-import { QuestionsPage } from '@/pades/QuestionsPage';
-import { QuestionPage } from '@/pades/QuestionPage';
-import { MainPage } from '@/pades/MainPage';
 import { MainLayout } from '@/app/layouts/MainLayout';
 import { DefaultPageLayout } from '@/app/layouts/DefaultPageLayout';
-import { QuestionLayout } from '@/pades/QuestionPage/ui/QuestionLayout';
-import { NotFound } from '@/pades/NotFoundPage';
+import { QuestionWrapper, QuestionPage } from '@/pades/QuestionPage';
+import { MainPage } from '@/pades/MainPage';
+import { NotFoundPage } from '@/pades/NotFoundPage';
+import { QuestionsPage } from '@/pades/QuestionsPage';
 import { TrainingPage } from '@/pades/TrainingPage';
 
 export const PATH = {
@@ -28,10 +27,10 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: PATH.QUESTION_ID,
-				Component: QuestionLayout,
+				Component: QuestionWrapper,
 				children: [{ index: true, Component: QuestionPage }],
 			},
-			{ path: '*', Component: NotFound },
+			{ path: '*', Component: NotFoundPage },
 		],
 	},
 ]);

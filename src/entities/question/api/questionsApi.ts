@@ -1,7 +1,6 @@
-import { baseApi } from '@shared/api/baseApi';
 import { PaginatedQuestionsResponse } from '@shared/types';
-import { QuestionApi } from '@/entities/question/model';
-
+import { QuestionApi } from '@/entities/question';
+import { baseApi } from '@/shared';
 
 export const questionsApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({

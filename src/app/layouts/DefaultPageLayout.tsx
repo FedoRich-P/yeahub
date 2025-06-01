@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-import { QuestionsSidebar } from '@/widgets/QuestionsSidebar/ui/QuestionsSidebar';
+import { QuestionsSidebar } from '@/widgets/QuestionsSidebar';
 
 export function DefaultPageLayout() {
 	return (

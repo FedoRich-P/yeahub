@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { SpecializationFilter } from '@/features/filter-by-specialization/ui/SpecializationFilter';
-import { SkillsFilter } from '@/features/filter-by-skills/ui/SkillsFilter';
-import { FilterGroup } from '@/features/filter-group/ui/FilterGroup';
-import { useGetSkillsQuery } from '@/entities/skills/api/skillsApi';
-import { SearchQuestion } from '@/features/search-questions/ui/SearchQuestion';
-import { useGetSpecializationsQuery } from '@/entities/specialization/api/specializationApi';
-import { ClearButton } from '@/widgets/QuestionsSidebar/ui/ClearButton';
 import { complexityFilters, ratingFilters } from '@shared/constants';
+import { SkillsFilter } from '@/features/filter-by-skills';
+import { SpecializationFilter } from '@/features/filter-by-specialization';
+import { FilterGroup } from '@/features/filter-group';
+import { useGetSkillsQuery } from '@/entities/skills';
+import { SearchQuestion } from '@/features/search-questions';
+import { useGetSpecializationsQuery } from '@/entities/specialization';
+import { ClearButton } from '@/widgets/QuestionsSidebar';
 
 export function QuestionsSidebar() {
 	const [specializationsLimit, setSpecializationsLimit] = useState<number>(5);

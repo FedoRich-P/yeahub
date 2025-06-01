@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router';
 import { QuestionSkill } from '@shared/types';
-import { QuestionBadge } from '@shared/ui/QuestionBadge';
-import { useGetQuestionByIdQuery } from '@/pades/QuestionPage/api/questionApi';
+import { useGetQuestionByIdQuery } from '@/pades/QuestionPage';
+import { QuestionBadge } from '@/shared';
 
 export function QuestionSidebar() {
 	const { id } = useParams();

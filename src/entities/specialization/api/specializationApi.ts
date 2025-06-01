@@ -1,5 +1,5 @@
-import { baseApi } from '@shared/api/baseApi';
-import { SpecializationsApiType, SpecializationsResApi } from '@/entities/specialization/model';
+import { SpecializationsApiType, SpecializationsResApi } from '@/entities/specialization';
+import { baseApi } from '@/shared';
 
 export const specializationsApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({

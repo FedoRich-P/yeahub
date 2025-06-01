@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import { parseRange } from '@shared/lib/utils/parseRange';
-import { FilterTag } from '@shared/ui/FilterTag';
-import { FiltersWrapper } from '@shared/ui/FiltersWrapper';
-import { toggleFilterParam } from '@/features/filter-group/lib/toggleFilterParam';
+import { FilterTag } from '@shared/ui/Filters/FilterTag';
+import { FiltersWrapper } from '@shared/ui/Filters/FiltersWrapper';
 import { FilterGroupType } from '@shared/types';
+import { parseRange } from '@/shared';
+import { toggleFilterParam } from '@/features/filter-group';
 
 type Props = {
 	title: string;
